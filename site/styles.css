@@ -1,0 +1,27 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+@import '../src/styles.css';
+
+@source './';
+
+:root:not([data-theme]),
+[data-theme='kata'] {
+  --hue: 330;
+  --tint: 0.014;
+  --accent-c: 0.12;
+}
+
+.code {
+  --sh-class: var(--info);
+  --sh-identifier: var(--foreground);
+  --sh-sign: var(--subtle-foreground);
+  --sh-property: var(--accent);
+  --sh-entity: var(--info);
+  --sh-jsxliterals: var(--foreground);
+  --sh-string: var(--success);
+  --sh-keyword: var(--danger);
+  --sh-comment: var(--subtle-foreground);
+  --sh-break: var(--foreground);
+  --sh-space: var(--foreground);
+}
