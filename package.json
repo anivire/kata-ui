@@ -1,6 +1,6 @@
 {
   "name": "@anivire/kata-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React + Tailwind v4 UI kit built on Radix",
   "license": "AGPL-3.0-only",
   "homepage": "https://anivire.github.io/kata-ui/",
