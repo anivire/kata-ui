@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "React + Tailwind v4 UI kit built on Radix",
   "license": "AGPL-3.0-only",
+  "homepage": "https://anivire.github.io/kata-ui/",
   "type": "module",
   "repository": {
     "type": "git",

@@ -1,6 +1,11 @@
 # kata-ui
 
+[![npm](https://img.shields.io/npm/v/@anivire/kata-ui)](https://www.npmjs.com/package/@anivire/kata-ui)
+[![Pages](https://github.com/anivire/kata-ui/actions/workflows/pages.yml/badge.svg)](https://github.com/anivire/kata-ui/actions/workflows/pages.yml)
+
 `@anivire/kata-ui` - a UI kit built on React 19, Tailwind CSS v4 and Radix.
+
+**Showcase:** https://anivire.github.io/kata-ui/
 
 The package ships as source (`.ts` and `.css`) with no build step; the app's Vite and Tailwind compile it.
 
