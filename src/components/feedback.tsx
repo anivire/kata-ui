@@ -76,6 +76,7 @@ export function Toaster() {
         classNames: {
           toast: cn('flex w-[var(--width)] items-center gap-3 rounded-xl py-2.5 pl-2.5 pr-4 font-sans', OVERLAY),
           icon: 'shrink-0 self-start',
+          loader: 'static! transform-none! data-[visible=false]:hidden',
           content: 'flex min-w-0 flex-1 flex-col gap-0.5 py-1',
           title: 'text-sm font-medium leading-5',
           description: 'text-[0.8125rem] leading-[1.125rem] text-muted-foreground',
