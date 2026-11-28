@@ -1,4 +1,4 @@
-import { RiArrowDownSLine, RiCheckLine, RiCloseLine, RiFileCopyLine, RiSearchLine } from '@remixicon/react'
+import { RiArrowDownSLine, RiCheckLine, RiCloseLine, RiFileCopyFill, RiSearchLine } from '@remixicon/react'
 import { type ReactNode, useEffect, useMemo, useState } from 'react'
 import { highlight } from 'sugar-high'
 import { Button, cn, Tooltip } from '../src'
@@ -47,8 +47,7 @@ export function Sidebar({ groups }: { groups: Group[] }) {
       <div className="-mr-3 flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto pr-3 scrollbar-none">
         {filtered.map((group) => (
           <div key={group.title}>
-            <div className="mb-1.5 flex items-center gap-2 px-3 text-xs font-medium text-subtle-foreground">
-              <group.icon className="size-3.5 shrink-0" />
+            <div className="mb-1.5 px-3 text-xs font-medium text-subtle-foreground">
               {group.title}
             </div>
             <ul className="flex flex-col gap-0.5">
@@ -114,13 +113,13 @@ function Demo({ demo }: { demo: DemoEntry }) {
         <h3 className="text-[0.9375rem] font-medium">{demo.title}</h3>
         {demo.description ? <p className="mt-0.5 text-sm text-muted-foreground">{demo.description}</p> : null}
       </div>
-      <figure className="overflow-hidden rounded-2xl">
+      <figure className="flex flex-col gap-2">
         {render ? (
-          <div className={cn('flex min-h-40 flex-wrap items-center justify-center gap-3 bg-surface p-8 sm:p-10', demo.preview)}>
+          <div className={cn('flex min-h-40 flex-wrap items-center justify-center gap-3 rounded-2xl bg-surface p-8 sm:p-10', demo.preview)}>
             <Component />
           </div>
         ) : null}
-        <CodeBlock code={source} file={`${demo.file}.tsx`} />
+        <CodeBlock code={source} />
       </figure>
     </div>
   )
@@ -128,7 +127,7 @@ function Demo({ demo }: { demo: DemoEntry }) {
 
 const COLLAPSED_LINES = 14
 
-function CodeBlock({ code, file }: { code: string; file: string }) {
+function CodeBlock({ code }: { code: string }) {
   const html = useMemo(() => highlight(code), [code])
   const long = code.split('\n').length > COLLAPSED_LINES + 4
   const [expanded, setExpanded] = useState(false)
@@ -145,31 +144,26 @@ function CodeBlock({ code, file }: { code: string; file: string }) {
   }
 
   return (
-    <div className="bg-inset">
-      <div className="flex h-10 items-center justify-between gap-3 pl-4 pr-1.5">
-        <span className="truncate font-mono text-xs text-subtle-foreground">{file}</span>
-        <Tooltip content={copied ? 'Copied' : 'Copy'}>
-          <Button size="icon-sm" variant="ghost" aria-label="Copy code" onClick={copy}>
-            {copied ? <RiCheckLine className="text-success" /> : <RiFileCopyLine />}
+    <div className="relative overflow-hidden rounded-xl bg-[#0a0a0b]">
+      <pre
+        className={cn('code overflow-x-auto py-3.5 pl-4 pr-12 font-mono text-[0.8125rem] leading-relaxed', long && !expanded && 'overflow-y-hidden')}
+        style={long && !expanded ? { maxHeight: `${COLLAPSED_LINES * 1.625 + 1.75}rem` } : undefined}
+      >
+        <code dangerouslySetInnerHTML={{ __html: html }} />
+      </pre>
+      <Tooltip content={copied ? 'Copied' : 'Copy'}>
+        <Button size="icon-sm" variant="ghost" aria-label="Copy code" onClick={copy} className="absolute right-2 top-2 text-white/60 hover:bg-white/10 hover:text-white">
+          {copied ? <RiCheckLine className="text-[#4ade80]" /> : <RiFileCopyFill />}
+        </Button>
+      </Tooltip>
+      {long ? (
+        <div className={cn('flex justify-center pb-3', !expanded && 'absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0a0a0b] from-40% to-transparent pt-12')}>
+          <Button size="sm" variant="ghost" className="rounded-full bg-white/10 text-white hover:bg-white/15" onClick={() => setExpanded((v) => !v)}>
+            {expanded ? 'Collapse' : 'Show full code'}
+            <RiArrowDownSLine className={cn('transition-transform', expanded && 'rotate-180')} />
           </Button>
-        </Tooltip>
-      </div>
-      <div className="relative">
-        <pre
-          className={cn('code overflow-x-auto px-4 pb-4 font-mono text-[0.8125rem] leading-6', long && !expanded && 'overflow-y-hidden')}
-          style={long && !expanded ? { maxHeight: `${COLLAPSED_LINES * 1.5 + 1}rem` } : undefined}
-        >
-          <code dangerouslySetInnerHTML={{ __html: html }} />
-        </pre>
-        {long ? (
-          <div className={cn('flex justify-center pb-3', !expanded && 'absolute inset-x-0 bottom-0 bg-gradient-to-t from-inset from-40% to-transparent pt-12')}>
-            <Button size="sm" variant="secondary" className="rounded-full" onClick={() => setExpanded((v) => !v)}>
-              {expanded ? 'Collapse' : 'Show full code'}
-              <RiArrowDownSLine className={cn('transition-transform', expanded && 'rotate-180')} />
-            </Button>
-          </div>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
     </div>
   )
 }

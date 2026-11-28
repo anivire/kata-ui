@@ -1,4 +1,4 @@
-import { RiCheckFill, RiCloseFill, RiErrorWarningFill, RiInformationFill } from '@remixicon/react'
+import { RiCheckFill, RiCheckboxCircleFill, RiCloseCircleFill, RiCloseFill, RiErrorWarningFill, RiInformationFill } from '@remixicon/react'
 import type { ComponentProps, ReactNode } from 'react'
 import { Toaster as Sonner } from 'sonner'
 import { cn } from '../lib/cn'
@@ -112,4 +112,40 @@ export function SaveBar({ message, cancelLabel, saveLabel, saving, onCancel, onS
 
 export function Code({ className, ...props }: ComponentProps<'code'>) {
   return <code className={cn('rounded-md bg-field px-1.5 py-0.5 font-mono text-[0.85em] text-foreground [overflow-wrap:anywhere]', className)} {...props} />
+}
+
+const ALERT = {
+  info: { box: 'bg-info-soft', text: 'text-info', icon: RiInformationFill },
+  success: { box: 'bg-success-soft', text: 'text-success', icon: RiCheckboxCircleFill },
+  warning: { box: 'bg-warning-soft', text: 'text-warning', icon: RiErrorWarningFill },
+  danger: { box: 'bg-danger-soft', text: 'text-danger', icon: RiCloseCircleFill },
+}
+
+export function Alert({
+  variant = 'info',
+  title,
+  icon,
+  action,
+  className,
+  children,
+}: {
+  variant?: keyof typeof ALERT
+  title?: ReactNode
+  icon?: ReactNode
+  action?: ReactNode
+  className?: string
+  children?: ReactNode
+}) {
+  const tone = ALERT[variant]
+  const Icon = tone.icon
+  return (
+    <div role={variant === 'danger' ? 'alert' : 'status'} className={cn('flex items-start gap-3 rounded-xl px-4 py-3 text-sm', tone.box, className)}>
+      <span className={cn('mt-0.5 shrink-0 [&_svg]:size-4', tone.text)}>{icon ?? <Icon />}</span>
+      <div className="min-w-0 flex-1">
+        {title ? <div className={cn('font-medium', tone.text)}>{title}</div> : null}
+        {children ? <div className={cn(title && 'text-muted-foreground')}>{children}</div> : null}
+      </div>
+      {action ? <div className="shrink-0 self-center">{action}</div> : null}
+    </div>
+  )
 }

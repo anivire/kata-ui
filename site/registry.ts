@@ -1,4 +1,3 @@
-import { RiCursorLine, RiDropperLine, RiInputField, RiLayoutGridLine, RiNotification3Line, RiStackLine } from '@remixicon/react'
 import type { ComponentType } from 'react'
 
 const modules = import.meta.glob<{ default: ComponentType }>('./demos/*.tsx', { eager: true })
@@ -21,7 +20,6 @@ export interface Entry {
 
 export interface Group {
   title: string
-  icon: ComponentType<{ className?: string }>
   items: Entry[]
 }
 
@@ -36,7 +34,6 @@ export function loadDemo(file: string) {
 export const GROUPS: Group[] = [
   {
     title: 'Foundations',
-    icon: RiDropperLine,
     items: [
       { id: 'overview', title: 'Overview', description: '', demos: [] },
       {
@@ -49,7 +46,6 @@ export const GROUPS: Group[] = [
   },
   {
     title: 'Actions',
-    icon: RiCursorLine,
     items: [
       {
         id: 'button',
@@ -76,7 +72,6 @@ export const GROUPS: Group[] = [
   },
   {
     title: 'Forms',
-    icon: RiInputField,
     items: [
       {
         id: 'field',
@@ -122,7 +117,6 @@ export const GROUPS: Group[] = [
   },
   {
     title: 'Overlays',
-    icon: RiStackLine,
     items: [
       { id: 'tooltip', title: 'Tooltip', description: 'A hint for icon-only controls. It opens on keyboard focus, not on mouse focus.', demos: [{ file: 'tooltip', title: 'Action bar' }] },
       { id: 'popover', title: 'Popover', description: 'A click-triggered panel for small forms and settings. Fields inside it adapt to the raised surface automatically.', demos: [{ file: 'popover', title: 'Quick rename' }] },
@@ -134,7 +128,6 @@ export const GROUPS: Group[] = [
   },
   {
     title: 'Feedback',
-    icon: RiNotification3Line,
     items: [
       {
         id: 'toast',
@@ -146,6 +139,7 @@ export const GROUPS: Group[] = [
           { file: 'toast-advanced', title: 'Promise and action' },
         ],
       },
+      { id: 'alert', title: 'Alert', description: 'An inline message in four tones: info, success, warning and danger. Add a title for a two-line message and action for a button on the right.', demos: [{ file: 'alert-variants', title: 'Variants', preview: 'items-stretch' }, { file: 'alert-action', title: 'With an action', preview: 'items-stretch' }] },
       { id: 'save-bar', title: 'SaveBar', description: 'A floating unsaved-changes bar at the bottom of the screen.', demos: [{ file: 'save-bar', title: 'Form with a draft', preview: 'items-stretch' }] },
       { id: 'progress', title: 'Progress', description: 'A thin progress bar; value goes from 0 to 1.', demos: [{ file: 'progress', title: 'Server resources', preview: 'items-stretch' }] },
       { id: 'spinner', title: 'Spinner', description: 'A loading indicator that inherits the text color.', demos: [{ file: 'spinner', title: 'Variants' }] },
@@ -155,7 +149,6 @@ export const GROUPS: Group[] = [
   },
   {
     title: 'Display',
-    icon: RiLayoutGridLine,
     items: [
       {
         id: 'card',
@@ -166,6 +159,7 @@ export const GROUPS: Group[] = [
           { file: 'card-server', title: 'Status', preview: 'bg-background' },
         ],
       },
+      { id: 'collapsible', title: 'Collapsible', description: 'A section that expands in place. The chevron in CollapsibleTrigger turns when it is open.', demos: [{ file: 'collapsible', title: 'Advanced settings', preview: 'bg-background' }] },
       { id: 'image', title: 'Image', description: 'An image that fades in once loaded and shows a fallback on error.', demos: [{ file: 'image-posters', title: 'Posters with a fallback' }] },
       { id: 'star-icon', title: 'StarIcon', description: 'A rating icon, filled or outlined.', demos: [{ file: 'star-rating', title: 'Rating' }] },
       { id: 'kbd', title: 'Kbd', description: 'A key or a key combination.', demos: [{ file: 'kbd', title: 'Shortcut' }] },
